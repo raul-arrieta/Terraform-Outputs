@@ -1,3 +1,7 @@
 **/node_modules 
 *.vsix
 **/package-lock.json
+*.tfstate
+.terraform/
+*.tfvars
+*.backup
