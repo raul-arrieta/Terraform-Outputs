@@ -3,7 +3,7 @@
     "id": "terraform-outputs",
     "name": "Terraform Outputs",
     "version": "0.1.0",
-    "publisher": "raularrieta",
+    "publisher": "raul-arrieta",
     "public": true,
     "helpMarkDown": "[More Information](https://github.com/raul-arrieta/terraform-outputs)",
     "targets": [
