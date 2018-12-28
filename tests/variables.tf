@@ -21,5 +21,4 @@ variable "AZURE_REGION" {
 
 variable "PREFIX" {
   description = "The prefix applied to all resource names."
-  default = "validate_azure_outputs"
 }
