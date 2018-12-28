@@ -1,0 +1,85 @@
+{
+    "manifestVersion": 1,
+    "id": "terraform-outputs",
+    "name": "Terraform Outputs",
+    "version": "0.1.0",
+    "publisher": "raularrieta",
+    "public": true,
+    "helpMarkDown": "[More Information](https://github.com/raul-arrieta/terraform-outputs)",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "description": "This task reads the output values of a Terraform execution and sets them as Azure Pipelines variables",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "tags": [
+        "azure",
+        "devops",
+        "pipeline",
+        "terraform",
+        "output",
+        "build",
+        "release",
+        "variable",
+        "parameter",
+        "deployment"
+    ],
+    "screenshots": [],
+    "content": {
+        "license": {
+            "path": "LICENSE"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/raul-arrieta/terraform-outputs"
+        },
+        "support": {
+            "uri": "https://github.com/raul-arrieta/terraform-outputs"
+        },
+        "issues": {
+            "uri": "https://github.com/raul-arrieta/terraform-outputs/issues"
+        }
+    },
+    "branding": {
+        "color": "rgb(216, 224, 240)",
+        "theme": "light"
+    },
+    "icons": {
+        "default": "images/icon.png",
+        "large": "images/icon-large.png"
+    },
+    "files": [
+        {
+            "path": "terraform-outputsV1",
+            "packagePath": "/terraform-outputsV1/"
+        },
+        {
+            "path": "images/icon.png",
+            "addressable": true
+        },
+        {
+            "path": "images/icon-large.png",
+            "addressable": true
+        }
+    ],
+    "contributions": [
+        {
+            "id": "terraform-outputs",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "terraform-outputs"
+            }
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/raul-arrieta/terraform-outputs"
+    }
+}

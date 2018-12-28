@@ -1,0 +1,16 @@
+{
+  "name": "terraform-outputs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Raul Arrieta",
+  "license": "GNU GPLv3",
+  "dependencies": {
+    "azure-pipelines-task-lib": "^2.7.7"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "@types/q": "^1.5.1"
+  }
+}
