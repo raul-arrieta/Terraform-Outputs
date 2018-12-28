@@ -2,9 +2,9 @@
     "manifestVersion": 1,
     "id": "terraform-outputs",
     "name": "Terraform Outputs",
-    "version": "0.1.0",
+    "version": "0.0.3",
     "publisher": "raul-arrieta",
-    "public": true,
+    "public": false,
     "helpMarkDown": "[More Information](https://github.com/raul-arrieta/terraform-outputs)",
     "targets": [
         {
@@ -31,6 +31,9 @@
     "content": {
         "license": {
             "path": "LICENSE"
+        },
+        "details": {
+            "path": "docs/overview.md"
         }
     },
     "links": {
@@ -54,16 +57,7 @@
     },
     "files": [
         {
-            "path": "terraform-outputsV1",
-            "packagePath": "/terraform-outputsV1/"
-        },
-        {
-            "path": "images/icon.png",
-            "addressable": true
-        },
-        {
-            "path": "images/icon-large.png",
-            "addressable": true
+            "path": "terraform-outputsV1"
         }
     ],
     "contributions": [
@@ -74,7 +68,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "terraform-outputs"
+                "name": "terraform-outputsV1"
             }
         }
     ],
