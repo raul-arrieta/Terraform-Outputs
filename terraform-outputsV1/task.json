@@ -31,7 +31,7 @@
             "label": "Path to Terraform",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "Path to the terraform file (leave empty if it is globally available).",
+            "helpMarkDown": "Path to the terraform file (leave empty if it is globally available)."
         },
         {
             "name": "failOnStderr",
@@ -39,7 +39,7 @@
             "label": "Fail on Standard Error",
             "defaultValue": "false",
             "required": false,
-            "helpMarkDown": "If this is true, this task will fail if any errors are written to the StandardError stream.",
+            "helpMarkDown": "If this is true, this task will fail if any errors are written to the StandardError stream."
         }
     ],
     "execution": {
