@@ -6,7 +6,6 @@ try {
     Import-VstsLocStrings "$PSScriptRoot\task.json"
 
     # Get inputs.
-    $input_failOnStderr = Get-VstsInput -Name 'failOnStderr' -AsBool
     $input_pathToTerraform = Get-VstsInput -Name 'pathToTerraform'
     $input_workingDirectory = Get-VstsInput -Name 'workingDirectory' -Require
     Assert-VstsPath -LiteralPath $input_workingDirectory -PathType 'Container'
