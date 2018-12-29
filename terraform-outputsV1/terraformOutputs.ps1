@@ -13,8 +13,9 @@ try {
 
     # Get output file.
     $outputFileName = [guid]::NewGuid();
+    $outputFilePath = $input_workingDirectory+"\"+$outputFileName+".out"
 
-    Write-Output "Output fileName: '$outputFileName'"
+    Write-Output "Output file path: '$outputFilePath'"
 
     # Get terraform execution path.
     $terraform = "terraform"
@@ -23,7 +24,7 @@ try {
         $terraform = $input_pathToTerraform + "\terraform.exe"
     }
 
-    $arguments = "output -json > $outputFileName"
+    $arguments = "output -json"
 
     Write-Output "Terraform path: '$terraform'"
     Write-Output "Terraform scripts path: '$input_workingDirectory'"
@@ -40,60 +41,9 @@ try {
     $failed = $false
 
     # Run the script.
-    if (!$input_failOnStderr) {
-        Invoke-VstsTool @splat
-    } else {
-        $inError = $false
-        $errorLines = New-Object System.Text.StringBuilder
-        Invoke-VstsTool @splat 2>&1 |
-            ForEach-Object {
-                if ($_ -is [System.Management.Automation.ErrorRecord]) {
-                    # Buffer the error lines.
-                    $failed = $true
-                    $inError = $true
-                    $null = $errorLines.AppendLine("$($_.Exception.Message)")
+    Invoke-VstsTool @splat | Out-File $outputFilePath
 
-                    # Write to verbose to mitigate if the process hangs.
-                    Write-Verbose "STDERR: $($_.Exception.Message)"
-                } else {
-                    # Flush the error buffer.
-                    if ($inError) {
-                        $inError = $false
-                        $message = $errorLines.ToString().Trim()
-                        $null = $errorLines.Clear()
-                        if ($message) {
-                            Write-VstsTaskError -Message $message
-                        }
-                    }
-
-                    Write-Host "$_"
-                }
-            }
-
-        # Flush the error buffer one last time.
-        if ($inError) {
-            $inError = $false
-            $message = $errorLines.ToString().Trim()
-            $null = $errorLines.Clear()
-            if ($message) {
-                Write-VstsTaskError -Message $message
-            }
-        }
-    }
-
-    # Fail on $LASTEXITCODE
-    if (!(Test-Path -LiteralPath 'variable:\LASTEXITCODE')) {
-        $failed = $true
-        Write-Verbose "Unable to determine exit code"
-        Write-VstsTaskError -Message (Get-VstsLocString -Key 'PS_UnableToDetermineExitCode')
-    } else {
-        if ($LASTEXITCODE -ne 0) {
-            $failed = $true
-            Write-VstsTaskError -Message (Get-VstsLocString -Key 'PS_ExitCode' -ArgumentList $LASTEXITCODE)
-        }
-    }
-
-    $outputvariable = (Get-Content $input_pathToTerraform\$outputFileName) | ConvertFrom-Json 
+    $outputvariable = (Get-Content $outputFilePath) | ConvertFrom-Json 
 
     $outputvariable.PSobject.Properties | ForEach-Object {
         $name = $($_.Name)
@@ -108,6 +58,19 @@ try {
         Write-Host "##vso[task.setvariable variable=$name;]$value";
         Write-Output "[$name;$value]"
         Write-Output "------------------------------------------------------------"
+    }
+
+
+     # Fail on $LASTEXITCODE
+     if (!(Test-Path -LiteralPath 'variable:\LASTEXITCODE')) {
+        $failed = $true
+        Write-Verbose "Unable to determine exit code"
+        Write-VstsTaskError -Message (Get-VstsLocString -Key 'PS_UnableToDetermineExitCode')
+    } else {
+        if ($LASTEXITCODE -ne 0) {
+            $failed = $true
+            Write-VstsTaskError -Message (Get-VstsLocString -Key 'PS_ExitCode' -ArgumentList $LASTEXITCODE)
+        }
     }
 
     # Fail if any errors.
