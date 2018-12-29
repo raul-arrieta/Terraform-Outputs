@@ -16,11 +16,6 @@ try {
 
     Write-Output "Output FileName: '$outputFileName'"
 
-    if (Test-Path $input_workingDirectory\$outputFileName){
-        Write-Output "Removing the existing output file: $input_workingDirectory\$outputFileName"
-        Remove-Item $input_workingDirectory\$outputFileName
-    }
-
     # Get terraform execution path.
     $terraform = "terraform"
     if (-not ([string]::IsNullOrEmpty($input_pathToTerraform)))
