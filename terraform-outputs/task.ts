@@ -23,8 +23,8 @@ export class terraformoutputstask {
     private static mapOutputsToVariables(outputFilePath: string) {
         let outputsData = fs.readFileSync(outputFilePath, 'utf8');
 
-        console.log("outputs data: "+outputsData);
-
+        console.log("Outputs data: "+outputsData);
+        
         let outputs = JSON.parse(outputsData);
 
         for (var output in outputs) {
@@ -47,36 +47,21 @@ export class terraformoutputstask {
 
             let terraformPath = this.getTerraformPath(pathToTerraform);
 
-            let terraformArguments = "output -json";
-
             console.log("Output file path: '" + outputFilePath + "'");
             console.log("Terraform path: '" + terraformPath + "'")
             console.log("Terraform scripts path: '" + pathToTerraform + "'")
-            console.log("Arguments: '" + terraformArguments + "'")
 
-            let tool = (os.type() != "Windows_NT")
-                ? tl.tool(tl.which("bash", true)).arg(terraformPath + " " + terraformArguments)
-                : tl.tool(tl.which(terraformPath + " " + terraformArguments, true));
-
-            var outputFileStream = fs.createWriteStream(outputFilePath, {flags:'a'});
+            let tool = tl.tool(tl.which(terraformPath, true)).arg("output").arg("-json").arg(">"+outputFilePath);
 
             let options = <tr.IExecOptions><unknown>{
                 cwd: workingDirectory,
                 failOnStdErr: false,
-                errStream: outputFileStream,
-                outStream: outputFileStream,
+                errStream: process.stdout,
+                outStream: process.stdout,
                 ignoreReturnCode: true  
             };
 
-            // tool.on('stdout', (data) => {
-            //     fs.appendFile(outputFilePath, data, function (err) {
-            //         if (err) { throw err; }
-            //     });
-            // });
-
             let exitCode: number = await tool.exec(options);
-
-            outputFileStream.end();
 
             let result = tl.TaskResult.Succeeded;
 
