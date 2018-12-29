@@ -14,7 +14,7 @@ try {
     # Get output file.
     $outputFileName = [guid]::NewGuid();
 
-    Write-Output "Output FileName: '$outputFileName'"
+    Write-Output "Output fileName: '$outputFileName'"
 
     # Get terraform execution path.
     $terraform = "terraform"
@@ -23,24 +23,14 @@ try {
         $terraform = $input_pathToTerraform + "\terraform.exe"
     }
 
-    Write-Output "Terraform path: '$terraform'"
+    $arguments = "output -json > $outputFileName"
 
-    # Prepare the external command values.
-    $cmdPath = $env:ComSpec
-    Assert-VstsPath -LiteralPath $cmdPath -PathType Leaf
-    # Command line switches:
-    # /D     Disable execution of AutoRun commands from registry.
-    # /E:ON  Enable command extensions. Note, command extensions are enabled
-    #        by default, unless disabled via registry.
-    # /V:OFF Disable delayed environment expansion. Note, delayed environment
-    #        expansion is disabled by default, unless enabled via registry.
-    # /S     Will cause first and last quote after /C to be stripped.
-    #
-    # Note, use CALL otherwise if a script ends with "goto :eof" the errorlevel
-    # will not bubble as the exit code of cmd.exe.
-    $arguments = "/D /E:ON /V:OFF /S /C `"CALL `"$terraform output -json > $outputFileName`"`""
+    Write-Output "Terraform path: '$terraform'"
+    Write-Output "Terraform scripts path: '$input_workingDirectory'"
+    Write-Output "Arguments: '$arguments'"
+
     $splat = @{
-        'FileName' = $cmdPath
+        'FileName' = $terraform
         'Arguments' = $arguments
         'WorkingDirectory' = $input_workingDirectory
     }
