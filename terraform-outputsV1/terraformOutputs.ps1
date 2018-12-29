@@ -20,7 +20,7 @@ try {
     $terraform = "terraform"
     if (-not ([string]::IsNullOrEmpty($input_pathToTerraform)))
     {
-        $terraform = $input_pathToTerraform + "/terraform.exe"
+        $terraform = $input_pathToTerraform + "\terraform.exe"
     }
 
     Write-Output "Terraform path: '$terraform'"
@@ -128,18 +128,4 @@ try {
     Trace-VstsLeavingInvocation $MyInvocation
 }
 
-Write-Verbose 'Entering terraformOutputs.ps1'
-Write-Verbose "pathToTerraform = $pathToTerraform"
-Write-Verbose "workingDirectory = $workingDirectory"
-
-
-
-Invoke-VstsTool -FileName terraform -arguments "output -json > $outputFileName"
-
-if ($LASTEXITCODE)
-{
-    $E = $Error[0]
-    Write-Host "##vso[task.logissue type=error;] Terraform failed to execute. Error: $E" 
-    Write-Host "##vso[task.complete result=Failed]"
-}
 
