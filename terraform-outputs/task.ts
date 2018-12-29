@@ -21,7 +21,11 @@ export class terraformoutputstask {
     }
 
     private static mapOutputsToVariables(outputFilePath: string) {
-        var outputs = JSON.parse(fs.readFileSync(outputFilePath, 'utf8'));
+        let outputsData = fs.readFileSync(outputFilePath, 'utf8');
+
+        console.log("outputs data: "+outputsData);
+        
+        let outputs = JSON.parse(outputsData);
 
         for (var output in outputs) {
             if (outputs.hasOwnProperty(output)) {
