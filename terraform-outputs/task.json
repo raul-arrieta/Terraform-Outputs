@@ -13,7 +13,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 12
+        "Patch": 13
     },
     "instanceNameFormat": "Terraform Outputs",
     "inputs": [

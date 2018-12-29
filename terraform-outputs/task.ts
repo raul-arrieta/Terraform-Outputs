@@ -24,7 +24,7 @@ export class terraformoutputstask {
         let outputsData = fs.readFileSync(outputFilePath, 'utf8');
 
         console.log("outputs data: "+outputsData);
-        
+
         let outputs = JSON.parse(outputsData);
 
         for (var output in outputs) {
@@ -56,7 +56,7 @@ export class terraformoutputstask {
 
             let tool = (os.type() != "Windows_NT")
                 ? tl.tool(tl.which("bash", true)).arg(terraformPath + " " + terraformArguments)
-                : tl.tool(tl.which(terraformPath, true)).arg(terraformArguments);
+                : tl.tool(tl.which(terraformPath + " " + terraformArguments, true));
 
             var outputFileStream = fs.createWriteStream(outputFilePath, {flags:'a'});
 
