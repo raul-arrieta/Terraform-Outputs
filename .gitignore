@@ -5,3 +5,5 @@
 .terraform/
 *.tfvars
 *.backup
+**/terraform-outputs/*.js
+**/terraform-outputs/*.js.map
