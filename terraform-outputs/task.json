@@ -9,7 +9,7 @@
     "visibility": [
         "Build",
         "Release"
-        ],
+    ],
     "version": {
         "Major": 0,
         "Minor": 2,
@@ -35,11 +35,9 @@
         }
     ],
     "execution": {
-        "PowerShell3": {
-            "target": "terraformOutputs.ps1",
-            "platforms": [
-                "windows"
-            ]
+        "Node": {
+            "target": "task.js",
+            "argumentFormat": ""
         }
     }
 }
