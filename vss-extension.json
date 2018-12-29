@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "terraform-outputs",
     "name": "Terraform Outputs",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "publisher": "raul-arrieta",
     "public": false,
     "helpMarkDown": "[More Information](https://github.com/raul-arrieta/terraform-outputs)",
@@ -68,7 +68,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "terraform-outputsV1"
+                "name": "terraform-outputs"
             }
         }
     ],
