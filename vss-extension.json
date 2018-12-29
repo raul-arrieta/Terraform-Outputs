@@ -57,7 +57,7 @@
     },
     "files": [
         {
-            "path": "terraform-outputsV1"
+            "path": "terraform-outputs"
         }
     ],
     "contributions": [
