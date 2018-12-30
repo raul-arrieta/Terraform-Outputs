@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "terraform-outputs",
     "name": "Terraform Outputs",
-    "version": "0.0.30",
+    "version": "0.0.31",
     "publisher": "raul-arrieta",
     "public": false,
     "helpMarkDown": "[More Information](https://github.com/raul-arrieta/terraform-outputs)",
@@ -58,6 +58,9 @@
     "files": [
         {
             "path": "terraform-outputs"
+        },        
+        {
+            "path": "images"
         }
     ],
     "contributions": [
