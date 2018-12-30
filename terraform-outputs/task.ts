@@ -49,7 +49,7 @@ export class terraformoutputstask {
             console.log("Terraform path: '" + terraformPath + "'")
             console.log("Terraform scripts path: '" + pathToTerraform + "'")
 
-            let tool = tl.tool(tl.which(terraformPath, true)).arg("output").arg("-json").arg(">").arg(outputFilePath);
+            let tool = tl.tool(tl.which(terraformPath, true)).arg("output").arg("-json");//.arg(">").arg(outputFilePath);
 
             let options = <tr.IExecOptions><unknown>{
                 cwd: workingDirectory,
@@ -57,9 +57,13 @@ export class terraformoutputstask {
                 outStream: process.stdout,
                 failOnStdErr: false,
                 ignoreReturnCode: true,
-                silent: false,
+                silent: true,
                 windowsVerbatimArguments: false
             };
+
+            tool.on('stdout', (out) => {
+                fs.writeFileSync(outputFilePath, out, { encoding: 'utf8', flag: 'a'});
+            });
 
             let exitCode: number = await tool.exec(options);
 
