@@ -39,41 +39,39 @@ export class terraformoutputstask {
 
     public static async run() {
         try {
-            let pathToTerraform: string = tl.getInput("pathToTerraform");
-
             let workingDirectory: string = tl.getInput("workingDirectory");
-
-            let outputFilePath = path.join(workingDirectory, uuidV4() + '.out');
-
+            let pathToTerraform: string = tl.getInput("pathToTerraform");
             let terraformPath = this.getTerraformPath(pathToTerraform);
 
+            let outputFilePath = path.join(workingDirectory, uuidV4() + '.out');
+            
             console.log("Output file path: '" + outputFilePath + "'");
             console.log("Terraform path: '" + terraformPath + "'")
             console.log("Terraform scripts path: '" + pathToTerraform + "'")
 
-            let tool = tl.tool(tl.which(terraformPath, true)).arg("output").arg("-json");//.arg(">"+outputFilePath);
+            let tool = tl.tool(tl.which(terraformPath, true)).arg("output").arg("-json").arg(">").arg(outputFilePath);
 
             let options = <tr.IExecOptions><unknown>{
                 cwd: workingDirectory,
-                failOnStdErr: false,
                 errStream: process.stdout,
                 outStream: process.stdout,
-                ignoreReturnCode: true  
+                failOnStdErr: false,
+                ignoreReturnCode: true,
+                silent: false,
+                windowsVerbatimArguments: false
             };
 
             let exitCode: number = await tool.exec(options);
 
             let result = tl.TaskResult.Succeeded;
 
-            // Fail on exit code.
             if (exitCode !== 0) {
                 result = tl.TaskResult.Failed;
+            } else {
+                this.mapOutputsToVariables(outputFilePath);
             }
 
-            this.mapOutputsToVariables(outputFilePath);
-
             tl.setResult(result,exitCode.toString());
-
         }
         catch (err) {
             tl.setResult(tl.TaskResult.Failed, err.message);
