@@ -13,7 +13,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 19
+        "Patch": 20
     },
     "instanceNameFormat": "Terraform Outputs",
     "inputs": [
@@ -23,7 +23,15 @@
             "label": "Path to Terraform scripts",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Path to t  he folder which contains the .tf files."
+            "helpMarkDown": "Path to the folder which contains the .tf files."
+        },
+        {
+            "name": "variablePrefix",
+            "type": "string",
+            "label": "Variable prefix:",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Common prefix to each of the variable names."
         },
         {
             "name": "pathToTerraform",
@@ -31,7 +39,7 @@
             "label": "Path to Terraform",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "Path to the terraform file (leave empty if it is globally available)."
+            "helpMarkDown": "Path to the terraform file (leave empty if it is available in PATH)."
         }
     ],
     "execution": {

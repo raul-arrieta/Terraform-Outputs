@@ -20,25 +20,39 @@ export class terraformoutputstask {
         return terraformPath;
     }
 
-    private static mapOutputsToVariables(outputFilePath: string) {
+    private static getVariableName(prefix: string, outputName: string){
+        return isNullOrUndefined(prefix) 
+            ? outputName
+            : prefix + outputName;
+    }
+
+    private static mapOutputsToVariables(outputFilePath: string, prefix: string) {
+        
         let outputsData = fs.readFileSync(outputFilePath, 'utf8');
 
-        console.log("Outputs data: "+outputsData);
+        console.log("Outputs data: ");
+        console.log(outputsData);
+        console.log("Mapping outputs...")
         
         let outputs = JSON.parse(outputsData);
 
         for (var output in outputs) {
             if (outputs.hasOwnProperty(output)) {
-                console.log("variable name: '" + output + "'")
-                console.log("variable value: '" + outputs[output].value + "'")
+                
+                var variableName = this.getVariableName(prefix, output);
 
-                tl.setVariable(output, outputs[output].value);
+                var variableValue = outputs[output].value;
+
+                console.log("- " + variableName);
+
+                tl.setVariable(variableName, variableValue);
             }
         }
     }
 
     public static async run() {
         try {
+            let variablePrefix: string = tl.getInput("variablePrefix");
             let workingDirectory: string = tl.getInput("workingDirectory");
             let pathToTerraform: string = tl.getInput("pathToTerraform");
             let terraformPath = this.getTerraformPath(pathToTerraform);
@@ -67,15 +81,13 @@ export class terraformoutputstask {
 
             let exitCode: number = await tool.exec(options);
 
-            let result = tl.TaskResult.Succeeded;
-
             if (exitCode !== 0) {
-                result = tl.TaskResult.Failed;
-            } else {
-                this.mapOutputsToVariables(outputFilePath);
+                throw <Error>{message: "Terraform execution returned '"+exitCode+"' exit code."}
             }
 
-            tl.setResult(result,exitCode.toString());
+            this.mapOutputsToVariables(outputFilePath, variablePrefix);
+
+            tl.setResult(tl.TaskResult.Succeeded,"");
         }
         catch (err) {
             tl.setResult(tl.TaskResult.Failed, err.message);
