@@ -30,8 +30,6 @@ export class terraformoutputstask {
         
         let outputsData = fs.readFileSync(outputFilePath, 'utf8');
 
-        console.log("Outputs data: ");
-        console.log(outputsData);
         console.log("Mapping outputs...")
         
         let outputs = JSON.parse(outputsData);
