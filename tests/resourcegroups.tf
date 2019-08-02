@@ -6,3 +6,8 @@ resource "azurerm_resource_group" "resourcegroup" {
 output "resource_group_name" {
   value = "${azurerm_resource_group.resourcegroup.name}"
 }
+
+output "resource_group_name_sensitive" {
+  value     = "${azurerm_resource_group.resourcegroup.name}"
+  sensitive = true
+}

@@ -26,7 +26,7 @@ export class terraformoutputstask {
             : prefix + outputName;
     }
 
-    private static mapOutputsToVariables(outputFilePath: string, prefix: string) {
+    private static mapOutputsToVariables(outputFilePath: string, prefix: string, mapSensitiveOutputsAsSecrets: boolean) {
         
         let outputsData = fs.readFileSync(outputFilePath, 'utf8');
 
@@ -41,9 +41,11 @@ export class terraformoutputstask {
 
                 var variableValue = outputs[output].value;
 
+                var isSecret = mapSensitiveOutputsAsSecrets === true && outputs[output].sensitive === true;
+                
                 console.log("- " + variableName);
 
-                tl.setVariable(variableName, variableValue, outputs[output].sensitive === true);
+                tl.setVariable(variableName, variableValue, isSecret);
             }
         }
     }
@@ -53,6 +55,7 @@ export class terraformoutputstask {
             let variablePrefix: string = tl.getInput("variablePrefix");
             let workingDirectory: string = tl.getInput("workingDirectory");
             let pathToTerraform: string = tl.getInput("pathToTerraform");
+            let mapSensitiveOutputsAsSecrets: boolean = tl.getInput("mapSensitiveOutputsAsSecrets");
             let terraformPath = this.getTerraformPath(pathToTerraform);
 
             let outputFilePath = path.join(workingDirectory, uuidV4() + '.out');
@@ -83,7 +86,7 @@ export class terraformoutputstask {
                 throw <Error>{message: "Terraform execution returned '"+exitCode+"' exit code."}
             }
 
-            this.mapOutputsToVariables(outputFilePath, variablePrefix);
+            this.mapOutputsToVariables(outputFilePath, variablePrefix, mapSensitiveOutputsAsSecrets);
 
             tl.setResult(tl.TaskResult.Succeeded,"");
         }

@@ -1,20 +1,14 @@
 param(
-    [string]$resourcegroupname = $(throw "-resourcegroupname is required."),
-    [string]$resourcegroupnameexpectedvalue = $(throw "-resourcegroupname is required.")
-    [string]$containerregistryadminusername = $(throw "-containerregistryadminusername is required."),
-    [string]$containerregistryadminusernameexpectedvalue = $(throw "-containerregistryadminusernameexpectedvalue is required.")
-    [string]$containerregistryadminpassword = $(throw "-containerregistryadminpassword is required."),
-    [string]$containerregistryadminpasswordexpectedvalue = $(throw "-containerregistryadminpasswordexpectedvalue is required.")
+    [string]$resourcegroup_name = $(throw "-resourcegroup_name is required."),
+    [string]$resourcegroup_name_expected_value = $(throw "-resourcegroup_name_expected_value is required.")
+    [string]$resource_group_name_sensitive = $(throw "-resource_group_name_sensitive is required."),
+    [string]$resource_group_name_sensitive_expected_value = $(throw "-resource_group_name_sensitive_expected_value is required.")
 )
 
-If ($resourcegroupname -ne $resourcegroupnameexpectedvalue) {
+If ($resourcegroup_name -ne $resourcegroup_name_expected_value) {
     throw
 }
 
-If ($containerregistryadminusername -ne $containerregistryadminusernameexpectedvalue) {
-    throw
-}
-
-If ($containerregistryadminpassword -ne $containerregistryadminpasswordexpectedvalue) {
+If ($resource_group_name_sensitive -ne $resource_group_name_sensitive_expected_value) {
     throw
 }
