@@ -8,6 +8,8 @@ This extension enables you to use the Terraform outputs as variables in your Azu
 
 This task will execute 'terraform output -json' command within the provided "Path to Terraform scripts" and map all these values to pipeline variables.
 
+It is possible to indicate if you want to map the sensitive outputs as secrets (thanks to [@joseph-passineau](https://github.com/joseph-passineau) :blush:).
+
 You can also provide a common prefix that will be applied to each of the variable names.
 
 Optionally a path to Terraform assembly can be provided. If it's available in PATH this value can be leave empty.

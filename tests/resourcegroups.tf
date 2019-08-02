@@ -4,5 +4,10 @@ resource "azurerm_resource_group" "resourcegroup" {
 }
 
 output "resource_group_name" {
-  value = "${azurerm_resource_group.resourcegroup.name}"
+  value = "${azurerm_resource_group.resourcegroup.name}_NOT_SENSITIVE"
+}
+
+output "resource_group_name_sensitive" {
+  value     = "${azurerm_resource_group.resourcegroup.name}_SENSITIVE"
+  sensitive = true
 }

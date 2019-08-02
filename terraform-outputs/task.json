@@ -13,7 +13,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 22
+        "Patch": 42
     },
     "instanceNameFormat": "Terraform Outputs",
     "inputs": [
@@ -24,6 +24,13 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "Path to the folder which contains the .tf files."
+        },
+        {
+            "name": "mapSensitiveOutputsAsSecrets",
+            "type": "boolean",
+            "label": "Map sensitive variables as secrets",
+            "defaultValue": false,
+            "required": true
         },
         {
             "name": "variablePrefix",
