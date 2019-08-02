@@ -43,7 +43,7 @@ export class terraformoutputstask {
 
                 console.log("- " + variableName);
 
-                tl.setVariable(variableName, variableValue);
+                tl.setVariable(variableName, variableValue, outputs[output].sensitive === true);
             }
         }
     }
