@@ -62,7 +62,7 @@ export class terraformoutputstask {
             
             console.log("Output file path: '" + outputFilePath + "'");
             console.log("Terraform path: '" + terraformPath + "'")
-            console.log("Terraform scripts path: '" + pathToTerraform + "'")
+            console.log("Terraform scripts path: '" + workingDirectory + "'")
 
             let tool = tl.tool(tl.which(terraformPath, true)).arg("output").arg("-json");
             
