@@ -47,6 +47,14 @@
             "defaultValue": "",
             "required": false,
             "helpMarkDown": "Path to the terraform file (leave empty if it is available in PATH)."
+        },
+        {
+            "name": "isOutput",
+            "type": "boolean",
+            "label": "Create variables with isOutput property = true.",
+            "defaultValue": false,
+            "required": false,
+            "helpMarkDown": "Create variables with isOutput property = true."
         }
     ],
     "execution": {
